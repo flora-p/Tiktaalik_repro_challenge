@@ -26,4 +26,5 @@ meansow <- sum(datasowbug$sowweightedcounts)
 poissow <-dpois(datasowbug$k_number_of_arthropods, meansow, log=FALSE)
 
 #plot this
-ggplot(datasowbug) + aes(x=datasowbug$k_number_of_arthropods, y=datasowbug$sowboardfrac) + geom_line() + geom_line(aes(x=datasowbug$k_number_of_arthropods, y=poissow), col="red") + xlab("k number of arthropods") + ylab("probability of finding a board with k arthropods")
+naiveplot <- ggplot(datasowbug) + aes(x=datasowbug$k_number_of_arthropods, y=datasowbug$sowboardfrac) + geom_line() + geom_line(aes(x=datasowbug$k_number_of_arthropods, y=poissow), col="red") + xlab("k number of arthropods") + ylab("probability of finding a board with k arthropods")
+ggsave("naivepoissonsowbug.png", naiveplot, dpi=1000)

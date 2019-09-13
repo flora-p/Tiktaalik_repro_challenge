@@ -28,4 +28,13 @@ ggplot(arthro) + aes(x = arthro$bug_counts, y = arthro$spider_prob) +
          #geom_bar()+
          #xlab("Probability of finding spiders under a board") #don't know why i made this but here's this broken plot
 
+##second lambda as defined by challenge
+spider_lambda2 <- 0
+
+##LGP
+arthro$expec_lgp <- dLGP(arthro$bug_counts,spider_lambda1,spider_lambda2)
+
+lgpplot <- spider_plot + 
+  geom_line(aes(x=arthro$bug_counts, y=arthro$expec_lgp),col="orangered3")
+lgpplot #for some reason it's exactly the same
 

@@ -36,7 +36,15 @@ lambda2=0.53214
 lambda1=meansow*(1-lambda2)
 raw$expected_lgp=dLGP(raw$k_number_of_arthropods,lambda1,lambda2)
 
-lgpplot <- ggplot(raw) + aes(x=raw$k_number_of_arthropods, y=raw$sowboardfrac) + geom_line() + geom_line(aes(x=raw$k_number_of_arthropods, y=raw$poissow), col="red") + 
-	  geom_line(aes(x=raw$k_number_of_arthropods, y=raw$expected_lgp),col="blue")+
-	  xlab("k number of arthropods") + ylab("probability of finding a board with k arthropods")
+lgpplot <- ggplot(data=raw)+ 
+  geom_line(aes(x=raw$k_number_of_arthropods,y=raw$sowboardfrac,color="Real"))+
+  geom_line(aes(x=raw$k_number_of_arthropods,y=raw$poissow,color="Poisson"))+
+  geom_line(aes(x=raw$k_number_of_arthropods,y=raw$expected_lgp,color="LGP")) +
+  xlab("number of arthropods")+ylab("Probability")+
+  scale_color_manual(values = c(
+    'Real' = 'black',
+    'Poisson' = 'blue',
+    'LGP' = 'red')) +
+    labs(color = 'Distribution')
+
 ggsave("withlgpsowbug.png", lgpplot, dpi=1000) 

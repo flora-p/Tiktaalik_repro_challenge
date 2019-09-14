@@ -1,6 +1,13 @@
 data = read.csv("/Users/xli/Documents/xinyi/UChicago/BSD-QBio5/tutorials/defensive_programming/data/subtype_counts.csv",stringsAsFactors = F)
 
+<<<<<<< Updated upstream
 calculate_prob <-function (dz_prev, birthyear, prob_data, subtype)
+=======
+data = read.csv("C:/Users/Flora/Desktop/MBL_Bootcamp/BSD-QBio5/tutorials/defensive_programming/data/subtype_counts.csv",stringsAsFactors = F)
+getwd()
+
+calculate_prob <-function (birthyear, prob_data, subtype)
+>>>>>>> Stashed changes
 {
  #dz_prev: disease prevalence; birthyear: the birth year of the individual ; prob_data: count data of each subtype 
  #subtype: "H1N1", "H3N2", or "H2N2" 
@@ -41,6 +48,7 @@ calculate_prob <-function (dz_prev, birthyear, prob_data, subtype)
   return(prob)
 }
 
+<<<<<<< Updated upstream
 #calculate_prob(0.28, 1967, data, "H1N1")
 #create a table to store all the birthyear probability 
 all_pre = matrix(0, nrow= max(data$Year)-min(data$Year)+1,ncol=3)
@@ -58,3 +66,17 @@ for (i in 1:(length(birthyear)))
 }
 colnames(all_pre) = c("H3N2","H1N1","H2N2")
 rownames(all_pre) = birthyear
+=======
+
+p <- calculate_prob(1962, data, "H1N1")
+p_sum <- sum(p)
+p_sum
+
+p <- calculate_prob(1962, data, "H3N2")
+p_sum <- sum(p)
+p_sum
+
+p <- calculate_prob(1960, data, "H2N2")
+p <- max(p)
+p
+>>>>>>> Stashed changes

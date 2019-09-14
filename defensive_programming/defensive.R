@@ -2,6 +2,8 @@ data = read.csv("/Users/xli/Documents/xinyi/UChicago/BSD-QBio5/tutorials/defensi
 
 calculate_prob <-function (dz_prev, birthyear, prob_data, subtype)
 {
+ #dz_prev: disease prevalence; birthyear: the birth year of the individual ; prob_data: count data of each subtype 
+ #subtype: "H1N1", "H3N2", or "H2N2" 
  #check if birthyear is positive and integer 
   if (birthyear < 0 | birthyear!=round(birthyear)) 
     stop("Your birthyear should be positive integer")
@@ -15,7 +17,7 @@ calculate_prob <-function (dz_prev, birthyear, prob_data, subtype)
   if (sum(rowSums(prob_data[,c(2:4)])==0)!=0)
     stop("The row sum of count data should not be zero")
   #check if disease prevalence is 0-1 
-  if (dz_prev >1 | dz_prev < 0 )
+  if (dz_prev > 1 | dz_prev < 0 )
     stoop("disease prevalence should be between 0-1")
  
   #find the maximum year in calculating probability  
@@ -39,4 +41,20 @@ calculate_prob <-function (dz_prev, birthyear, prob_data, subtype)
   return(prob)
 }
 
-calculate_prob(0.28, 1967, data, "H1N1")
+#calculate_prob(0.28, 1967, data, "H1N1")
+#create a table to store all the birthyear probability 
+all_pre = matrix(0, nrow= max(data$Year)-min(data$Year)+1,ncol=3)
+subtype = c("H3N2","H1N1","H2N2")
+birthyear=c(min(data$Year):max(data$Year))
+
+#loop through each year 
+for (i in 1:(length(birthyear)))
+{
+#loop through each subtype 
+  for (j in 1:length(subtype))
+  {
+    all_pre[i,j] = max(calculate_prob(0.28,birthyear[i],data,subtype[j]))
+  }
+}
+colnames(all_pre) = c("H3N2","H1N1","H2N2")
+rownames(all_pre) = birthyear
